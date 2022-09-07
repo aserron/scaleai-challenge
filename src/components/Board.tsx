@@ -1,35 +1,5 @@
 import React, {MouseEventHandler, useEffect, useState} from "react";
 
-class TestMatrix {
-    static diagTest1 = [
-        [0, 0, 0, 0, 2, 1],
-        [0, 0, 0, 0, 1, 0],
-        [0, 0, 0, 1, 2, 1],
-        [0, 0, 0, 2, 1, 1],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-    ];
-    static diagTest2 = [
-        [0, 0, 0, 1, 2, 1],
-        [0, 0, 0, 1, 1, 2],
-        [0, 0, 0, 1, 1, 1],
-        [0, 0, 0, 2, 1, 1],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-    ];
-    static diagTest3 = [
-        [0, 0, 0, 1, 1, 2],
-        [0, 0, 0, 1, 2, 2],
-        [0, 0, 0, 2, 1, 1],
-        [0, 0, 0, 1, 1, 1],
-        [0, 0, 2, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-    ];
-}
-
 const BoardInfo: React.FC<{ curr: number }> = props => {
     return (<>
         <div className={`info`}>Current Player: {props.curr} : Please Drop A Coin</div>
@@ -47,7 +17,7 @@ const DropButton: React.FC<{ key: string, player: number, onClickHdl: MouseEvent
 
 }
 
-const ActionBar: React.FC<{ currentPlayer: number; dropBtnOnClick: (arg0: number) => void }> = props => {
+const ActionBar: React.FC<{ currentPlayer: number, dropBtnOnClick: (arg0: number) => void }> = props => {
     return <>
         {[1, 2, 3, 4, 5, 6, 7].map(
             (col, idx) => {
@@ -61,14 +31,37 @@ const ActionBar: React.FC<{ currentPlayer: number; dropBtnOnClick: (arg0: number
 
 }
 
-function SlotBox(props: { slotCls: string, slotPlayerCls: string, i: number, j: number, slot: number }) {
-    return (
-        <div className={`row`}>
-            <div className={`slot-box`}>
-                <div className={`${props.slotCls} ${props.slotPlayerCls}`}>({props.i},{props.j}):{props.slot}</div>
-            </div>
-        </div>);
-}
+const SlotBox = (props: { slotCls: string, slotPlayerCls: string, i: number, j: number, slot: number }) => (
+    <div className={`row`}>
+        <div className={`slot-box`}>
+            <div className={`${props.slotCls} ${props.slotPlayerCls}`}>({props.i},{props.j}):{props.slot}</div>
+        </div>
+    </div>);
+
+const BoardRow: React.FC<{ numbers: number[], col:number}> = props => {
+
+    let slotCls = `slot-ct`;
+
+    let col = props.col;
+
+    return <div className={`board-col`}>{
+        props.numbers.map(
+            (slot, j) => {
+
+                // add p1, p2 classname
+                let slotPlayerCls = ``;
+                if (slot === 1) {
+                    slotPlayerCls = `slot-p1`
+                }
+                else if (slot === 2) {
+                    slotPlayerCls = `slot-p2`
+                }
+
+                return <SlotBox key={`C${col}R${j}`} slotCls={slotCls} slotPlayerCls={slotPlayerCls}
+                                i={col} j={j} slot={slot}/>
+            })
+    }</div>;
+};
 
 /**
  * # Plan.
@@ -242,14 +235,14 @@ export const Board: React.FC<{}> = props => {
 
                 let count = 0;
 
-                for (var k = 0; k <= 2 * (maxLength - 1); ++k) {
+                for (let k = 0; k <= 2 * (maxLength - 1); ++k) {
 
                     let hasPlayer = false;
                     temp = [];
 
                     // build diagonal
-                    for (var y = Ylength - 1; y >= 0; --y) {
-                        var x = k - (bottomToTop ? Ylength - y : y);
+                    for (let y = Ylength - 1; y >= 0; --y) {
+                        const x = k - (bottomToTop ? Ylength - y : y);
                         if (x >= 0 && x < Xlength) {
                             temp.push(array[y][x]);
                         }
@@ -420,24 +413,9 @@ export const Board: React.FC<{}> = props => {
 
                 {
                     slots.map((rowArr, i) => {
-                        let slotCls = `slot-ct`;
+
                         return (
-                            <div key={`slotR${i}`} className={`board-col`}>{
-                                rowArr.map((slot, j) => {
-
-                                    // add p1, p2 classname
-                                    let slotPlayerCls = ``;
-                                    if (slot === 1) {
-                                        slotPlayerCls = `slot-p1`
-                                    }
-                                    else if (slot === 2) {
-                                        slotPlayerCls = `slot-p2`
-                                    }
-
-                                    return <SlotBox key={`C${i}R${j}`} slotCls={slotCls} slotPlayerCls={slotPlayerCls}
-                                                    i={i} j={j} slot={slot}/>
-                                })
-                            }</div>
+                            <BoardRow key={`slotR${i}`} col={i} numbers={rowArr}/>
                         )
                     })
                 }

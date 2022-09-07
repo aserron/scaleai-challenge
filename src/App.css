@@ -36,3 +36,71 @@
     transform: rotate(360deg);
   }
 }
+
+.layout {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+.board-ct {
+
+  width: 800px;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 100px 100px 100px 100px 100px 100px 100px;
+  background-color: darkblue;
+  color: #444;
+}
+
+
+.board-col.header {
+  color: white;
+}
+.board-col {
+  /*background: magenta;*/
+  justify-self: center;
+}
+.board-col > .row {
+  background: green;
+}
+
+.slot-ct {
+  margin: 10px;
+  border-radius: 50%;
+
+  background: lightgray;
+
+  padding: 10px;
+  display: block;
+  width: 60px;
+  height: 60px;
+}
+
+
+.slot-p1 {
+  background: yellow !important;
+}
+
+.slot-p2 {
+  background: red !important;
+}
+
+.drop-btn {
+  padding: 20px 10px;
+
+  color: black;
+  background: lightsalmon;
+  font-weight: bolder;
+  font-size: larger;
+}
+.drop-btn:hover {
+  color: black;
+  background: orange;
+}
+.drop-btn:active  {
+  background: red;
+}
+
+.info {
+  padding: 20px 10px;
+}

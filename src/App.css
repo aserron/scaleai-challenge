@@ -1,106 +1,184 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .layout {
-  display: grid;
-  justify-content: center;
-  align-content: center;
+    display: grid;
+    justify-content: center;
+    align-content: center;
 }
-.board-ct {
 
-  width: 800px;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: 100px 100px 100px 100px 100px 100px 100px;
-  background-color: darkblue;
-  color: #444;
+.board-ct {
+    display: grid;
+    grid-gap: 10px;
+    background-color: darkblue;
+    color: #444;
+    grid-template-columns: repeat(7, 100px);
+    width: fit-content;
+    padding: 40px;
 }
 
 
 .board-col.header {
-  color: white;
+    color: white;
 }
+
 .board-col {
-  /*background: magenta;*/
-  justify-self: center;
+    /*background: magenta;*/
+    justify-self: center;
 }
+
 .board-col > .row {
-  background: green;
+    background: transparent;
+    box-sizing: content-box;
+    display: block;
+}
+
+
+.slot-box {
+
+    background: bisque;
+    /*aspect-ratio: 16/9;*/
+    /*border-radius: 15px;*/
+
+    /*background: lightsteelblue;*/
+    /*background: linear-gradient(transparent, navy);*/
+
+    display: block;
+    width: auto;
+    box-sizing: content-box;
+
+    height: fit-content;
+    contain: content;
+    backdrop-filter: drop-shadow(2px 4px 6px black);
+
+
+}
+.slot-box3::before {
+    top: 13px;
+    right: 8px;
+    content: "";
+    background: linear-gradient(45deg, purple, green, hotpink);
+    position: absolute;
+    width: 75%;
+    z-index: -1;
+    filter: blur(5px);
+    left: 8%;
+    border-radius: 50%;
+    bottom: 91%;
+    height: 75%;
+}
+.slot-box2::before {
+    top: 10px;
+    right: 100%;
+
+    content: "";
+    background: linear-gradient(45deg, purple, green, hotpink);
+    position: absolute;
+    height: 50%;
+    width: 50%;
+    z-index: -1;
+    filter: blur(5px);
+}
+.slot-box2 {
+
+    background: green;
+
+
+    display: block;
+    width: 60px;
+    height: 60px;
 }
 
 .slot-ct {
-  margin: 10px;
-  border-radius: 50%;
+    margin: 10px;
+    border-radius: 50%;
 
-  background: lightgray;
+    background: lightgray;
 
-  padding: 10px;
-  display: block;
-  width: 60px;
-  height: 60px;
+    box-shadow: -1px 12px 68px -30px rgba(0,0,0,1) inset;
+    -webkit-box-shadow: -1px 12px 68px -30px rgba(0,0,0,1) inset;
+    -moz-box-shadow: -1px 12px 68px -30px rgba(0,0,0,1) inset;
+
+    padding: 10px;
+    display: block;
+    width: 60px;
+    height: 60px;
 }
 
 
 .slot-p1 {
-  background: yellow !important;
+    background: yellow !important;
 }
 
 .slot-p2 {
-  background: red !important;
+    background: red !important;
 }
-
 .drop-btn {
-  padding: 20px 10px;
+    padding: 15px 10px;
+    color: black;
+    display: block;
 
-  color: black;
-  background: lightsalmon;
-  font-weight: bolder;
-  font-size: larger;
+    background: hsl(39, 50%, 75%);
+    text-align: center;
+    vertical-align: center;
+    font-weight: bolder;
+    font-size: 2em;
+    border-radius: .2em;
 }
+.drop-btn2 {
+    padding: 20px 10px;
+
+    color: black;
+    background: lightsalmon;
+    font-weight: bolder;
+    font-size: larger;
+}
+
 .drop-btn:hover {
-  color: black;
-  background: orange;
+    color: black;
+    background: orange;
 }
-.drop-btn:active  {
-  background: red;
+
+.drop-btn:active {
+    background: red;
 }
 
 .info {
-  padding: 20px 10px;
+    padding: 20px 10px;
 }

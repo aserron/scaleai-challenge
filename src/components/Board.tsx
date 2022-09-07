@@ -47,18 +47,27 @@ const DropButton: React.FC<{ key: string, player: number, onClickHdl: MouseEvent
 
 }
 
-const ActionBar: React.FC<{currentPlayer:number;  dropBtnOnClick: (arg0: number) => void }> = props => {
+const ActionBar: React.FC<{ currentPlayer: number; dropBtnOnClick: (arg0: number) => void }> = props => {
     return <>
         {[1, 2, 3, 4, 5, 6, 7].map(
             (col, idx) => {
                 return <DropButton
                     key={`h-${idx}`}
                     player={props.currentPlayer}
-                    onClickHdl={()=>props.dropBtnOnClick(idx)}
+                    onClickHdl={() => props.dropBtnOnClick(idx)}
                 />
             }
         )}</>
 
+}
+
+function SlotBox(props: { slotCls: string, slotPlayerCls: string, i: number, j: number, slot: number }) {
+    return (
+        <div className={`row`}>
+            <div className={`slot-box`}>
+                <div className={`${props.slotCls} ${props.slotPlayerCls}`}>({props.i},{props.j}):{props.slot}</div>
+            </div>
+        </div>);
 }
 
 /**
@@ -124,7 +133,7 @@ export const Board: React.FC<{}> = props => {
 
     /* Game Rules Check Funcitions */
     function testDraw() {
-        return (coinsLeft===0);
+        return (coinsLeft === 0);
         // return (coinCount === 42);
     }
 
@@ -392,7 +401,6 @@ export const Board: React.FC<{}> = props => {
     }, [slots]);
 
 
-
     /* event listeners */
     const dropBtnOnClick = (column: number) => {
         console.info(`onClick: player ${currentPlayer} drop coin into col ${column}`);
@@ -410,29 +418,29 @@ export const Board: React.FC<{}> = props => {
                     dropBtnOnClick={dropBtnOnClick}
                 />
 
-                {slots.map((rowArr, i) => {
-                    let slotCls = `slot-ct`;
-                    return (
-                        <div key={`slotR${i}`} className={`board-col`}>{
+                {
+                    slots.map((rowArr, i) => {
+                        let slotCls = `slot-ct`;
+                        return (
+                            <div key={`slotR${i}`} className={`board-col`}>{
+                                rowArr.map((slot, j) => {
 
-                            rowArr.map((slot, j) => {
+                                    // add p1, p2 classname
+                                    let slotPlayerCls = ``;
+                                    if (slot === 1) {
+                                        slotPlayerCls = `slot-p1`
+                                    }
+                                    else if (slot === 2) {
+                                        slotPlayerCls = `slot-p2`
+                                    }
 
-                                // add p1, p2 classname
-                                let slotPlayerCls = ``;
-                                if (slot === 1) {
-                                    slotPlayerCls = `slot-p1`
-                                }
-                                else if (slot === 2) {
-                                    slotPlayerCls = `slot-p2`
-                                }
-
-                                return <div className={`row`} key={`C${i}R${j}`}>
-                                    <div className={`${slotCls} ${slotPlayerCls}`}>({i},{j}):{slot}</div>
-                                </div>
-                            })
-                        }</div>
-                    )
-                })}
+                                    return <SlotBox key={`C${i}R${j}`} slotCls={slotCls} slotPlayerCls={slotPlayerCls}
+                                                    i={i} j={j} slot={slot}/>
+                                })
+                            }</div>
+                        )
+                    })
+                }
 
             </div>
         </>

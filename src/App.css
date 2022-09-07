@@ -37,6 +37,8 @@
     }
 }
 
+
+
 .layout {
     display: grid;
     justify-content: center;
@@ -59,6 +61,14 @@
 }
 
 .board-col {
+    background: darkblue;
+    justify-self: center;
+    padding: 10px 0px;
+    display: block;
+    box-sizing: content-box;
+
+}
+.board-col1 {
     /*background: magenta;*/
     justify-self: center;
 }
@@ -72,7 +82,7 @@
 
 .slot-box {
 
-    background: bisque;
+    /*background: bisque;*/
     /*aspect-ratio: 16/9;*/
     /*border-radius: 15px;*/
 
@@ -143,10 +153,12 @@
 
 
 .slot-p1 {
+    box-shadow: none !important;
     background: yellow !important;
 }
 
 .slot-p2 {
+    box-shadow: none !important;
     background: red !important;
 }
 .drop-btn {
@@ -161,6 +173,12 @@
     font-size: 2em;
     border-radius: .2em;
 }
+
+.drop-btn::before {
+    content: "";
+    background: green;
+}
+
 .drop-btn2 {
     padding: 20px 10px;
 
